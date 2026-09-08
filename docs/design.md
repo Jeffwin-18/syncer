@@ -208,7 +208,7 @@ CI (`.github/workflows/build.yml`, `.github/workflows/gitleaks.yml`):
 - Non-`main`: `build:staging` artifact build under GitHub Environment **`staging`** (committed `oauth-clients.staging.json`, empty gate — no OAuth secrets injected)
 - `main`: production build from committed `oauth-clients.prod.json` (GitHub Environment **`prod`**, empty gate, no client-ID secrets); coverage badges published to `badges` branch
 
-Release (`.github/workflows/release.yml`): **annotated** version tags matching `[0-9]*` (lightweight tags are skipped by `git push --follow-tags`), GitHub Environment **`prod`**, committed `oauth-clients.prod.json` (no `*_PROD` secret injects), attach `main.js` / `manifest.json` / `styles.css`, then submit first release via `community.obsidian.md`.
+Release (`.github/workflows/release.yml`): **annotated** version tags matching `[0-9]*` (lightweight tags are skipped by `git push --follow-tags`). **Stable** tags → GitHub Environment **`prod`**, `build:prod` / `verify:prod-build`, committed `oauth-clients.prod.json`, non-prerelease. **Beta** tags (contain `-beta.`) → `build:staging`, committed `oauth-clients.staging.json`, GitHub **prerelease**, no prod gate. No `*_PROD` secret injects. Attach `main.js` / `manifest.json` / `styles.css`; stable releases submit via `community.obsidian.md`.
 
 Local vault install helper: `npm run sync` + `OBSIDIAN_VAULT_PLUGIN_DIR_DEV` (see `.envrc.example`). Contributor bootstrap: [#70](https://github.com/desimpson/syncer/issues/70).
 

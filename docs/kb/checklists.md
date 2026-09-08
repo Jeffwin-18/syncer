@@ -35,11 +35,12 @@ For each new source integration:
 Run before tagging/release:
 
 - Build passes and produced plugin files load in Obsidian desktop
-- Prefer `npm version patch|minor|major` so the version commit and **annotated** tag are created together
-- Git tag and `manifest.json` version match exactly (`x.y.z`, no `v` prefix)
+- Prefer `npm version patch|minor|major` (or `npm version x.y.z-beta.n` for staging prereleases) so the version commit and **annotated** tag are created together
+- Git tag and `manifest.json` version match exactly (no `v` prefix; beta tags like `0.5.0-beta.1` are valid)
+- **Stable** (`x.y.z`): local `npm run build` (prod); **beta** (`*-beta.*`): local `npm run build:staging`; confirm released `main.js` has the expected Google client ID for that channel
 - Tag is annotated (`git cat-file -t refs/tags/x.y.z` → `tag`); lightweight tags are not pushed by `git push --follow-tags`
 - `npm run release:check` passes (also rejects a lightweight tag when the version tag exists)
-- GitHub release includes `main.js`, `manifest.json`, and `styles.css`
+- GitHub release includes `main.js`, `manifest.json`, and `styles.css`; beta releases are marked **prerelease**
 - Manual sync works for each enabled integration in a real vault note
 - Completion/deletion toggles behave as documented for enabled integrations
 - No temporary debug diagnostics left enabled by default
