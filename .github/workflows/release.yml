@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "[0-9]*" # Triggers on version tags like 0.1.0
+      - "[0-9]*" # Triggers on version tags like 0.1.0 and 0.5.0-beta.1
 
 jobs:
   release:
@@ -13,11 +13,11 @@ jobs:
       contents: write
       attestations: write
       id-token: write
-    environment:
-      name: prod
     # Prod OAuth client IDs come from committed oauth-clients.prod.json so Observer
     # rebuilds match the published main.js. Do not inject *_PROD secrets — that
     # would diverge from a clean-checkout build.
+    # Tags containing "-beta." use build:staging and publish a GitHub prerelease
+    # without the prod environment gate. Stable tags keep prod build + prod gate.
 
     steps:
       - name: Checkout repository
@@ -50,8 +50,30 @@ jobs:
       - name: Verify committed OAuth client IDs
         run: npm run check:oauth-clients
 
+      - name: Determine release channel
+        id: channel
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          if [[ "$TAG_NAME" == *"-beta."* ]]; then
+            echo "channel=staging" >> $GITHUB_OUTPUT
+            echo "Release channel: staging (beta prerelease)"
+          else
+            echo "channel=prod" >> $GITHUB_OUTPUT
+            echo "Release channel: prod (stable release)"
+          fi
+
+      - name: Prod release approval
+        if: steps.channel.outputs.channel == 'prod'
+        environment: prod
+        run: echo "Prod release approved"
+
       - name: Build plugin (prod, deterministic)
+        if: steps.channel.outputs.channel == 'prod'
         run: npm run verify:prod-build
+
+      - name: Build plugin (staging)
+        if: steps.channel.outputs.channel == 'staging'
+        run: npm run build:staging
 
       - name: Verify release readiness
         run: npm run release:check
@@ -94,4 +116,4 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.tag }}
           generate_release_notes: true
           draft: false
-          prerelease: false
+          prerelease: ${{ steps.channel.outputs.channel == 'staging' }}

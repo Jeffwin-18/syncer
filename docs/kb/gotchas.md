@@ -66,6 +66,7 @@
 ## Release / tags
 
 - Release tags must be **annotated** (`git tag -a` / `npm version`); `git push --follow-tags` ignores lightweight tags, so a version commit can land on `main` without triggering [`.github/workflows/release.yml`](../../.github/workflows/release.yml)
+- Tag glob is `[0-9]*` (no `v` prefix). **Stable** tags (`x.y.z`) → prod build, GitHub Environment **`prod`** gate, non-prerelease. **Beta** tags (name contains `-beta.`, e.g. `0.5.0-beta.1`) → `build:staging`, GitHub **prerelease**, no prod gate; manifest version must match the tag exactly (including `-beta.n`)
 - Verify with `git cat-file -t refs/tags/x.y.z` → `tag`. A detached checkout of the tag target makes `git cat-file -t x.y.z` report `commit` even when the tag is annotated (Actions release job). See README Releasing and [`checklists.md`](checklists.md)
 
 ## Public legal site

@@ -232,10 +232,16 @@ No third-party UI components are currently bundled in the settings tab.
 
 ## Releasing
 
-1. Bump version with **`npm version patch|minor|major`** (or `npm version x.y.z`). This updates `package.json` / `manifest.json` / `versions.json`, commits, and creates an **annotated** git tag (required). Do not use `git tag x.y.z` without `-a` — `git push --follow-tags` only pushes annotated tags.
-2. Build production: `npm run build` (uses committed OAuth client IDs in `oauth-clients.prod.json`)
+Release tags match `[0-9]*` (no `v` prefix), e.g. `0.2.1` or `0.5.0-beta.1`.
+
+**Stable release** (`x.y.z`): prod build (`oauth-clients.prod.json`), GitHub Environment **`prod`** approval gate, non-prerelease publish.
+
+**Staging prerelease** (tag contains `-beta.`, e.g. `0.5.0-beta.1`): staging build (`oauth-clients.staging.json`), no prod gate, GitHub **prerelease** flag.
+
+1. Bump version with **`npm version patch|minor|major`** (or `npm version x.y.z` / `npm version x.y.z-beta.n`). This updates `package.json` / `manifest.json` / `versions.json`, commits, and creates an **annotated** git tag (required). Do not use `git tag x.y.z` without `-a` — `git push --follow-tags` only pushes annotated tags.
+2. Build locally before push: stable → `npm run build` (prod); beta → `npm run build:staging`
 3. Verify: `npm run release:check` (fails if the version tag exists but is lightweight)
 4. Confirm the tag is annotated: `git cat-file -t x.y.z` must print `tag` (not `commit`). If you ever need a manual tag: `git tag -a x.y.z -m "x.y.z"`.
-5. Push commit and tag: `git push --follow-tags` (triggers release workflow; tags must match `[0-9]*`, e.g. `0.2.1`, not `v0.2.1`). If `--follow-tags` skips the tag, push it explicitly: `git push origin x.y.z`.
+5. Push commit and tag: `git push --follow-tags`. If `--follow-tags` skips the tag, push it explicitly: `git push origin x.y.z`.
 6. Verify the GitHub release contains `main.js`, `manifest.json`, `styles.css`, and the generated attestation bundle
-7. Submit the new plugin version through [Obsidian Community directory](https://community.obsidian.md), following [Submit your plugin](https://docs.obsidian.md/plugins/releasing/submit-plugin), then monitor automated review results
+7. Stable releases only: submit the new plugin version through [Obsidian Community directory](https://community.obsidian.md), following [Submit your plugin](https://docs.obsidian.md/plugins/releasing/submit-plugin), then monitor automated review results
