@@ -72,6 +72,10 @@ This plugin fetches data from external sources and syncs references/links to the
 
 Install **Syncer** from Obsidian’s Community plugins browser, or from the [Community directory](https://community.obsidian.md/plugins/syncer).
 
+### Beta testers (BRAT)
+
+Use [BRAT](https://github.com/TfTHacker/obsidian42-brat) in a **dedicated vault** (not one with Community Plugin Syncer already enabled — same plugin `id`). Add `desimpson/syncer` in **latest** mode; BRAT installs the highest semver release including prereleases (e.g. `0.5.0-beta.1`), not GitHub’s “Latest” stable badge.
+
 ### From source
 
 1. Build the plugin (see [Development](#development) below)
@@ -237,6 +241,8 @@ Release tags match `[0-9]*` (no `v` prefix), e.g. `0.2.1` or `0.5.0-beta.1`.
 **Stable release** (`x.y.z`): prod build (`oauth-clients.prod.json`), GitHub Environment **`prod`** approval gate, non-prerelease publish.
 
 **Staging prerelease** (tag contains `-beta.`, e.g. `0.5.0-beta.1`): staging build (`oauth-clients.staging.json`), no prod gate, GitHub **prerelease** flag.
+
+**Do not tag stable `0.5.0`** until [#121](https://github.com/desimpson/syncer/issues/121) approves Google OAuth verification. An accidental stable outranks staging betas in BRAT **latest**; tell testers to switch to **frozen** at the last good beta until the mistake is fixed.
 
 1. Bump version with **`npm version patch|minor|major`** (or `npm version x.y.z` / `npm version x.y.z-beta.n`). This updates `package.json` / `manifest.json` / `versions.json`, commits, and creates an **annotated** git tag (required). Do not use `git tag x.y.z` without `-a` — `git push --follow-tags` only pushes annotated tags.
 2. Build locally before push: stable → `npm run build` (prod); beta → `npm run build:staging`
