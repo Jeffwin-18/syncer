@@ -34,6 +34,7 @@ For each new source integration:
 
 Run before tagging/release:
 
+- **Guardrail:** do not tag stable `0.5.0` until [#121](https://github.com/desimpson/syncer/issues/121) approves; if it ships by mistake, BRAT testers freeze at the last good beta until fixed
 - Build passes and produced plugin files load in Obsidian desktop
 - Prefer `npm version patch|minor|major` (or `npm version x.y.z-beta.n` for staging prereleases) so the version commit and **annotated** tag are created together
 - Git tag and `manifest.json` version match exactly (no `v` prefix; beta tags like `0.5.0-beta.1` are valid)
