@@ -116,6 +116,37 @@
         >, including the Limited Use requirements.
       </p>
 
+      <h2>Protecting Google user data</h2>
+      <p>
+        Security procedures are in place to protect the confidentiality of
+        Google user data you connect through Syncer:
+      </p>
+      <ul>
+        <li>
+          Google OAuth and API traffic is encrypted in transit with HTTPS
+          (TLS). Tokens and Google user data are sent only to Google’s OAuth
+          and API endpoints.
+        </li>
+        <li>
+          Syncer has no server that receives your vault or Google user data.
+          The maintainer cannot read your Google account or your vault.
+        </li>
+        <li>
+          OAuth tokens are stored in Obsidian plugin settings
+          (<code>data.json</code> in your vault’s plugin folder). Synced titles,
+          links, and completion state are stored in the Markdown note you
+          configure. Access to those files is limited to the operating-system
+          account that can read the vault.
+        </li>
+        <li>
+          Syncer keeps Google user data only while it remains in your vault.
+          Disconnecting Google Tasks or Gmail Starred deletes that
+          integration’s stored tokens from plugin settings. Lines already
+          written to your note stay there until you edit or delete them. You
+          can also revoke Syncer’s access in your Google Account settings.
+        </li>
+      </ul>
+
       <h2>Other providers</h2>
       <p>
         If you connect Microsoft, Todoist, or Azure DevOps, Syncer reads the
@@ -145,7 +176,7 @@
         canonical Privacy Policy linked from the Google OAuth consent screen.
       </p>
 
-      <p class="updated">Last updated 20 August 2026.</p>
+      <p class="updated">Last updated 3 October 2026.</p>
     </main>
     <footer class="site-foot">
       <div class="wrap">
