@@ -218,7 +218,7 @@ Hosted copies used for Google OAuth verification: [homepage](https://obsidiansyn
 Syncer is a local plugin: it does not run a Syncer backend, proxy, or hosted API. Data access is limited to the integrations you enable:
 
 - **Account requirement**: cloud sync features need a corresponding Google account (Tasks / Gmail), Microsoft account (Outlook / To Do), Todoist account, and/or Azure DevOps account. Firefox Bookmarks sync is local and does not require a cloud account.
-- **Credentials / API keys**: Google, Microsoft, and Todoist use OAuth 2.0 (tokens stored in plugin settings). Azure DevOps uses a Personal Access Token (PAT) you paste in settings. OAuth tokens and PATs are sent only to the matching provider endpoints below — never to a Syncer service.
+- **Credentials / API keys**: Google, Microsoft, and Todoist use OAuth 2.0 (tokens stored in plugin settings). Azure DevOps uses a Personal Access Token (PAT) you paste in settings. OAuth tokens and PATs are sent only to the matching provider endpoints below over HTTPS — never to a Syncer service. Access to stored tokens is limited to the operating-system account that can read the vault. Disconnecting an integration deletes its stored credentials. How Google user data is protected and retained is described in the [Privacy Policy](https://obsidiansyncer.com/privacy.html).
 - **Network use**: when an integration is connected and sync runs, Syncer calls that provider to read/update items. Typical hosts include:
   - Google: `accounts.google.com`, `oauth2.googleapis.com`, `www.googleapis.com`, `tasks.googleapis.com`, `gmail.googleapis.com`
   - Microsoft: `login.microsoftonline.com`, `graph.microsoft.com`

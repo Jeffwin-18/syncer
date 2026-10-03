@@ -24,7 +24,7 @@ Plugin Observer may still report **Direct Filesystem Access** while `node:fs` is
 
 ## Credentials
 
-OAuth tokens and Azure DevOps PATs are stored in Obsidian plugin settings (`data.json`). They are sent only to the matching provider endpoints.
+OAuth tokens and Azure DevOps PATs are stored in Obsidian plugin settings (`data.json`). They are sent only to the matching provider endpoints over HTTPS. Access to `data.json` is limited to the operating-system account that can read the vault. Disconnecting an integration deletes that integration’s stored credentials. Google user data handling is described in the [Privacy Policy](https://obsidiansyncer.com/privacy.html).
 
 ## Telemetry
 
