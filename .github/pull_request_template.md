@@ -9,7 +9,7 @@
 
 ## Issue
 
-Closes #
+Closes #<issue-number>
 
 ## What changed?
 
@@ -25,10 +25,10 @@ Closes #
 
 ## Evidence
 
-<!-- Before merging, post evidence on the linked issue, such as the PR link, automated test results, or manual testing notes. -->
+* [ ] Evidence has been posted on the linked issue before merging.
 
 ## Checklist
 
-* [ ] I have followed the guidelines in [CONTRIBUTING.md](../CONTRIBUTING.md).
+* [ ] I have followed the guidelines in [CONTRIBUTING.md](https://github.com/desimpson/syncer/blob/main/CONTRIBUTING.md).
 * [ ] Tests and documentation have been updated when applicable.
 * [ ] The PR is focused on one bug, feature, or refactor.
