@@ -9,7 +9,7 @@
 
 ## Issue
 
-Closes #<issue-number>
+Link the related issue: `Closes #<id>` if this PR completes it, or `Refs #<id>` if it is related but does not close it.
 
 ## What changed?
 
